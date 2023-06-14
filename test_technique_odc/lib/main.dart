@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -46,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             bottom: const TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.directions_car)),
-                Tab(icon: Icon(Icons.directions_transit)),
+                Tab(icon: Icon(Icons.fireplace)),
+                Tab(icon: Icon(Icons.favorite)),
               ],
             ),
             title: const Text('Tabs Demo'),

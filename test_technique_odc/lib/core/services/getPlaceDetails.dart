@@ -17,7 +17,7 @@ Future<PlaceDetails> getPlaceDetails(String id) async {
       print(result.preview!.source);
       return result;
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Data doesnt match Failed to load data');
     }
   } catch (e) {
     print("Error"+e.toString());

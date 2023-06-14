@@ -45,7 +45,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
 
-                          Image.network(snapshot.data!.preview!.source.toString(),width: context.width*0.5),
+                          snapshot.data!.preview!=null ?Image.network(snapshot.data!.preview!.source!,width: context.width*0.5):const Text("Photo Not FOund"),
                           Text(snapshot.data!.kinds??""),
                           Text(snapshot.data!.wikipediaExtracts?.text??""),
                           Text(snapshot.data!.name??""),

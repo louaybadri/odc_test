@@ -50,29 +50,29 @@ class PlaceDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['xid'] = this.xid;
-    data['name'] = this.name;
-    if (this.address != null) {
-      data['address'] = this.address!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['xid'] = xid;
+    data['name'] = name;
+    if (address != null) {
+      data['address'] = address!.toJson();
     }
-    data['rate'] = this.rate;
-    data['wikidata'] = this.wikidata;
-    data['kinds'] = this.kinds;
-    if (this.sources != null) {
-      data['sources'] = this.sources!.toJson();
+    data['rate'] = rate;
+    data['wikidata'] = wikidata;
+    data['kinds'] = kinds;
+    if (sources != null) {
+      data['sources'] = sources!.toJson();
     }
-    data['otm'] = this.otm;
-    data['wikipedia'] = this.wikipedia;
-    data['image'] = this.image;
-    if (this.preview != null) {
-      data['preview'] = this.preview!.toJson();
+    data['otm'] = otm;
+    data['wikipedia'] = wikipedia;
+    data['image'] = image;
+    if (preview != null) {
+      data['preview'] = preview!.toJson();
     }
-    if (this.wikipediaExtracts != null) {
-      data['wikipedia_extracts'] = this.wikipediaExtracts!.toJson();
+    if (wikipediaExtracts != null) {
+      data['wikipedia_extracts'] = wikipediaExtracts!.toJson();
     }
-    if (this.point != null) {
-      data['point'] = this.point!.toJson();
+    if (point != null) {
+      data['point'] = point!.toJson();
     }
     return data;
   }
@@ -99,26 +99,26 @@ class Address {
         this.stateDistrict});
 
   Address.fromJson(Map<String, dynamic> json) {
-    city = json['city'];
-    state = json['state'];
-    county = json['county'];
-    suburb = json['suburb'];
-    country = json['country'];
-    postcode = json['postcode'];
-    countryCode = json['country_code'];
-    stateDistrict = json['state_district'];
+    city = json['city']??"";
+    state = json['state']??"";
+    county = json['county']??"";
+    suburb = json['suburb']??"";
+    country = json['country']??"";
+    postcode = json['postcode']??"";
+    countryCode = json['country_code']??"";
+    stateDistrict = json['state_district']??"";
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['county'] = this.county;
-    data['suburb'] = this.suburb;
-    data['country'] = this.country;
-    data['postcode'] = this.postcode;
-    data['country_code'] = this.countryCode;
-    data['state_district'] = this.stateDistrict;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['city'] = city;
+    data['state'] = state;
+    data['county'] = county;
+    data['suburb'] = suburb;
+    data['country'] = country;
+    data['postcode'] = postcode;
+    data['country_code'] = countryCode;
+    data['state_district'] = stateDistrict;
     return data;
   }
 }
@@ -135,9 +135,9 @@ class Sources {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['geometry'] = this.geometry;
-    data['attributes'] = this.attributes;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['geometry'] = geometry;
+    data['attributes'] = attributes;
     return data;
   }
 }
@@ -150,16 +150,16 @@ class Preview {
   Preview({this.source, this.height, this.width});
 
   Preview.fromJson(Map<String, dynamic> json) {
-    source = json['source'];
-    height = json['height'];
-    width = json['width'];
+    source = json['source']??"";
+    height = json['height']??"";
+    width = json['width']??"";
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['source'] = this.source;
-    data['height'] = this.height;
-    data['width'] = this.width;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['source'] = source;
+    data['height'] = height;
+    data['width'] = width;
     return data;
   }
 }
@@ -172,9 +172,9 @@ class WikipediaExtracts {
   WikipediaExtracts({this.title, this.text, this.html});
 
   WikipediaExtracts.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    text = json['text'];
-    html = json['html'];
+    title = json['title']??"";
+    text = json['text']??"";
+    html = json['html']??"";
   }
 
   Map<String, dynamic> toJson() {
