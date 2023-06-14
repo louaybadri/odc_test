@@ -1,31 +1,68 @@
-import 'package:flutter/material.dart';
-import 'package:test_technique_odc/ui/config.dart';
 
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:test_technique_odc/core/services/getPlaceDetails.dart';
+import 'package:test_technique_odc/ui/config.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../core/models/place_details.dart';
+
+class DetailsPage extends StatefulWidget {
+  const DetailsPage({Key? key, required this.id, required this.name}) : super(key: key);
+  final String id;
+  final String name;
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  late Future<PlaceDetails> futurePlaceDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    futurePlaceDetails = getPlaceDetails(widget.id);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // color: Colors.red,
+          // color: Colors.red,
           height: context.height,
           padding: EdgeInsets.only(top: context.topPadding),
           child: Column(
             children: [
-              const AppBarDetails(),
+              AppBarDetails(name: widget.name),
               SizedBox(
-                height: context.height*0.7,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    // Image.network('https://picsum.photos/250?image=9'),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
+                height: context.height * 0.7,
+                child: FutureBuilder<PlaceDetails>(
+                  future: futurePlaceDetails,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return (Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
 
-                  ],
+                          Image.network(snapshot.data!.preview!.source.toString(),width: context.width*0.5),
+                          Text(snapshot.data!.kinds??""),
+                          Text(snapshot.data!.wikipediaExtracts?.text??""),
+                          Text(snapshot.data!.name??""),
+                          InkWell(
+                              onTap:(){
+                                print(snapshot.data?.wikipedia!);
+                    },
+                              child: const Text("Visit Wikipedia")),
+                          ],
+                      ));
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+
+                    // By default, show a loading spinner.
+                    return const CircularProgressIndicator();
+                  },
                 ),
               )
             ],
@@ -36,24 +73,39 @@ class DetailsPage extends StatelessWidget {
 
 class AppBarDetails extends StatelessWidget {
   const AppBarDetails({
-    super.key,
+    super.key, required this.name,
   });
-
+  final String name;
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
-      height: context.height*0.2,
+      height: context.height * 0.2,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start  ,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
-              Icon(Icons.arrow_back_ios),
-              Text("Lucky Trip"),
-            ],
+          InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: const Row(
+              children: [
+                Icon(Icons.arrow_back_ios),
+                Text("Lucky Trip"),
+              ],
+            ),
           ),
-          Text("Medina",style: TextStyle(fontSize: context.height*0.03,fontWeight: FontWeight.bold)),
+          SizedBox(
+            width: context.width*0.5,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(name,
+                  style: TextStyle(
+                      fontSize: context.height * 0.03,
+                      fontWeight: FontWeight.bold)),
+            ),
+          ),
         ],
       ),
     );

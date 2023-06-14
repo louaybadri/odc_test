@@ -2,6 +2,7 @@
     package="com.example.test_technique_odc">
     <!-- Required to fetch data from the internet. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
    <application
         android:label="test_technique_odc"
         android:name="${applicationName}"

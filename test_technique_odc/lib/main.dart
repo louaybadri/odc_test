@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:test_technique_odc/core/providers/place_provider.dart';
+import 'package:test_technique_odc/ui/screens/details_page.dart';
+import 'package:test_technique_odc/ui/screens/favorite_screen.dart';
 import 'package:test_technique_odc/ui/screens/home_screen.dart';
-
+import 'package:provider/provider.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_)=>PlaceProvider(),)
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: MyHomePage(),
     );
   }
 }
@@ -31,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -45,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: const TabBarView(
             children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
+              HomeScreen(),
+              FavoriteScreen(),
             ],
           ),
         ),
